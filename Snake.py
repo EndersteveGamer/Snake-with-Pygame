@@ -1,4 +1,4 @@
-﻿from pygame import *
+from pygame import *
 from random import *
 from time import sleep,clock
 import json
@@ -235,13 +235,13 @@ def canPlaceWall(wallX,wallY):
         for wall in wallList:
             if wall[0]==wallX and wall[1]==wallY:
                 return False
-        if (snake.body[0].x-2==wallX and snake.body[0].y==wallY) or (snake.body[0].x-1==wallX and snake.body[0].y==wallY):
+        if (snake.body[0].x-2==wallX and snake.body[0].y==wallY) or (snake.body[0].x-1==wallX and snake.body[0].y==wallY) or (snake.body[0].x-3==wallX and snake.body[0].y==wallY):
             return False
-        if (snake.body[0].x+2==wallX and snake.body[0].y==wallY) or (snake.body[0].x+1==wallX and snake.body[0].y==wallY):
+        if (snake.body[0].x+2==wallX and snake.body[0].y==wallY) or (snake.body[0].x+1==wallX and snake.body[0].y==wallY) or (snake.body[0].x+3==wallX and snake.body[0].y==wallY):
             return False
-        if (snake.body[0].x==wallX and snake.body[0].y-2==wallY) or (snake.body[0].x==wallX and snake.body[0].y-1==wallY):
+        if (snake.body[0].x==wallX and snake.body[0].y-2==wallY) or (snake.body[0].x==wallX and snake.body[0].y-1==wallY) or (snake.body[0].x==wallX and snake.body[0].y-3==wallY):
             return False
-        if (snake.body[0].x==wallX and snake.body[0].y+2==wallY) or (snake.body[0].x==wallX and snake.body[0].y+1==wallY):
+        if (snake.body[0].x==wallX and snake.body[0].y+2==wallY) or (snake.body[0].x==wallX and snake.body[0].y+1==wallY) or (snake.body[0].x==wallX and snake.body[0].y+3==wallY):
             return False
         return True
 
@@ -402,7 +402,7 @@ def game():
                 stats["achievements_unlocked"].append("First game")
             if stats["games_played"][2]>=10 and "Time to play again!" not in stats["achievements_unlocked"]:
                 stats["achievements_unlocked"].append("Time to play again!")
-            if stats["games_played"][2]>=100 and "My favourite game" not in stats["achievements_unlocked"]:
+            if stats["games_played"][2]>=50 and "My favourite game" not in stats["achievements_unlocked"]:
                 stats["achievements_unlocked"].append("My favourite game")
             if stats["eaten_apples"]>=50 and "My beautiful garden" not in stats["achievements_unlocked"]:
                 stats["achievements_unlocked"].append("My beautiful garden")
@@ -410,9 +410,9 @@ def game():
                 stats["achievements_unlocked"].append("Serial eater")
             if stats["eaten_apples"]>=1000 and "This is never enough" not in stats["achievements_unlocked"]:
                 stats["achievements_unlocked"].append("This is never enough")
-            if stats["time_played"][3]>=3600 and "Time eater" not in stats["achievements_unlocked"]:
+            if stats["time_played"][3]>=1800 and "Time eater" not in stats["achievements_unlocked"]:
                 stats["achievements_unlocked"].append("Time eater")
-            if stats["time_played"][3]>=10800 and "Addict" not in stats["achievements_unlocked"]:
+            if stats["time_played"][3]>=3600 and "Addict" not in stats["achievements_unlocked"]:
                 stats["achievements_unlocked"].append("Addict")
             if stats["best_score"][2]>=10 and "New best!" not in stats["achievements_unlocked"]:
                 stats["achievements_unlocked"].append("New best!")
@@ -449,7 +449,6 @@ def stats_screen():
     global diffNum
     easter_egg=0
     easter_egg_text=0
-    easter_egg_text_color=255
     statsSelectedMode=0
     statsModesList=["Normal mode","Walls mode","All modes"]
     while True:
@@ -504,10 +503,8 @@ def stats_screen():
         else:
             screen.blit(font.SysFont("Comic Sans MS",40).render("Average score: {0}".format(round(stats["average_score"][2],2)),1,inverted_bg_color),Rect(10,400,100,50))
         if easter_egg_text>0:
-            screen.blit(font.SysFont("Comic Sans MS",20).render("New difficulty unlocked!",1,(easter_egg_text_color,easter_egg_text_color,easter_egg_text_color)),Rect(10,770,50,30))
+            screen.blit(font.SysFont("Comic Sans MS",20).render("New difficulty unlocked!",1,inverted_bg_color),Rect(10,770,50,30))
             easter_egg_text-=1
-            if easter_egg_text<224:
-                easter_egg_text_color-=1
         screen.blit(font.SysFont("Comic Sans MS",50).render(statsModesList[statsSelectedMode],1,inverted_bg_color),Rect(250,650,100,50))
         display.flip()
 
@@ -698,8 +695,8 @@ def options():
         display.flip()
         screen.fill(stats["bg_color"])
 
-achievementsList=["First game"        ,"Time to play again!","My favourite game","My beautiful garden","Serial eater"  ,"This is never enough","Time eater"     ,"Addict"          ,"New best!"                      ,"Snake expert"                   ,"Veteran"                        ,"Best player in the world"         ,"This is just a dream"                           ,"Snek!","Now this is hard"                            ,"Ninja skills"                              ,"Why would you do that?","Snake master"             ]
-achievementsDesc=["Just play the game","Play 10 times"      ,"Play 100 times"   ,"Eat 50 apples"      ,"Eat 100 apples","Eat 1000 apples"     ,"Play for 1 hour","Play for 3 hours","Have a best score of 10 or more","Have a best score of 30 or more","Have a best score of 50 or more","Have a best score of 100 or more!","Reach a score of 30 in the nightmare difficulty","Snek ","Play in hell difficulty (hint: stats screen)","Reach a score of 5 with an invisible snake","Use light mode"        ,"Complete all achievements"]
+achievementsList=["First game"        ,"Time to play again!","My favourite game","My beautiful garden","Serial eater"  ,"This is never enough","Time eater"         ,"Addict"         ,"New best!"                      ,"Snake expert"                   ,"Veteran"                        ,"Best player in the world"         ,"This is just a dream"                           ,"Snek!","Now this is hard"                            ,"Ninja skills"                              ,"Why would you do that?","Snake master"             ]
+achievementsDesc=["Just play the game","Play 10 times"      ,"Play 50 times"   ,"Eat 50 apples"      ,"Eat 100 apples","Eat 1000 apples"     ,"Play for 30 minutes","Play for 1 hour","Have a best score of 10 or more","Have a best score of 30 or more","Have a best score of 50 or more","Have a best score of 100 or more!","Reach a score of 30 in the nightmare difficulty","Snek ","Play in hell difficulty (hint: stats screen)","Reach a score of 5 with an invisible snake","Use light mode"        ,"Complete all achievements"]
 if "This is just a dream" in stats["achievements_unlocked"]:
     achievementsDesc[14]="Play in hell difficulty (type hell in stats screen)"
 
@@ -725,7 +722,7 @@ def achievements():
                 draw_check((700,scrollPos+k*150+10))
         screen.blit(font.SysFont("Comic Sans MS",20).render("Press ESCAPE to exit",1,inverted_bg_color),Rect(10,10,50,30))
         display.flip()
-        screen.fill((30,30,30))
+        screen.fill(stats["bg_color"])
 
 #Main menu
 if stats["bg_color"]==[255,255,255]:
@@ -755,11 +752,13 @@ while True:
             json.dump(stats,open("stats.json","w"))
             quit()
             exit()
+        #Exit
         if events.type==KEYDOWN and events.key==K_ESCAPE:
             exitPressed=True
         if events.type==KEYUP and events.key==K_ESCAPE:
             exitPressed=False
             exitTime=0
+        #Start
         if events.type==KEYDOWN and events.key==K_RETURN and selectedOption==0:
             #Game starting countdown
             screen.fill(stats["bg_color"])
@@ -837,7 +836,7 @@ while True:
             snekRand()
     #Exit management
     if exitPressed==True:
-        exitTime+=2
+        exitTime+=4
         if exitTime>200:
             draw.rect(screen,inverted_bg_color,Rect(10,10,10,30))
         if exitTime>400:
