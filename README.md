@@ -10,3 +10,5 @@ Use wasd to move,
 ENTER = pause the game,
 SHIFT + ESCAPE while you quit the game = exit without saving,
 middle mouse to scroll in achievements,
+
+To play download the snake.zip file
